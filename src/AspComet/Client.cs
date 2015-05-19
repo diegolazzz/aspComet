@@ -28,7 +28,12 @@ namespace AspComet
 
         public bool HasPendingMessages
         {
-            get { return this.messageQueue.Any(); }
+            get { 
+                    lock (this.syncRoot)
+                    {
+                        return this.messageQueue.Any();
+                    }
+                }
         }
 
         public void SubscribeTo(string subscription)
